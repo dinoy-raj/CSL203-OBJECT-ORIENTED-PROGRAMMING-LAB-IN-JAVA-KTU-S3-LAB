@@ -1,0 +1,55 @@
+import java.util.*;
+
+class test implements Runnable {
+
+    static int random;
+    Random rand = new Random();
+
+    public void run() {
+
+        random = rand.nextInt(10);
+        System.out.println(random);
+    }
+}
+
+class even implements Runnable {
+
+    public void run() {
+
+        if (test.random % 2 == 0) {
+            System.out.println((int) Math.pow(test.random, 2) + "\n");
+        }
+    }
+}
+
+class odd implements Runnable {
+
+    public void run() {
+
+        if (test.random % 2 != 0) {
+            System.out.println((int) Math.pow(test.random, 3) + "\n");
+        }
+    }
+}
+
+public class Multithread {
+
+    public static void main(String[] args) {
+
+        Thread ob = new Thread(new test());
+        Thread obe = new Thread(new even());
+        Thread obo = new Thread(new odd());
+        for (int i = 0; i < 10; i++) {
+
+            try {
+                Thread.sleep(1000);
+            } catch (Exception e) {
+                e.printStackTrace();
+                ob.start();
+                obe.start();
+                obo.start();
+            }
+        }
+    }
+
+}
